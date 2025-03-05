@@ -37,8 +37,9 @@
         android:layout_height="350dp" />
 
     <LinearLayout
+        android:id="@+id/EditLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -140,15 +141,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Switch" />
+                android:text="Admin" />
 
             <Button
                 android:id="@+id/buttonExit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="Exit" />
+
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

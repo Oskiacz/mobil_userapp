@@ -26,6 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false"
+            android:label="AdminActivity"
+            android:theme="@style/Theme.Login" />
     </application>
 
 </manifest>

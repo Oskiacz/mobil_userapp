@@ -28,47 +28,49 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button login = findViewById(R.id.buttonLogin);
+        Button loginButton = findViewById(R.id.buttonLogin);
         EditText user = findViewById(R.id.textLogin);
         EditText password = findViewById(R.id.textPassword);
 
         users.add(new User("admin", "mobil", "admin", "admin", true));
 
-        if(getIntent().hasExtra("users")) {
-            users = (ArrayList<User>) getIntent().getSerializableExtra("users_list");
+        if(getIntent().hasExtra("user_list")) {
+            users = (ArrayList<User>) getIntent().getSerializableExtra("user_list");
         }
 
-        login.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!user.getText().toString().equals("") && !password.getText().toString().equals("")) {
 
-                    User foundUser = findUserByLogin(users, login.getText().toString());
+                    User foundUser = findUserByLogin(users, user.getText().toString());
 
                     if(foundUser == null) {
                         User newUser = new User(
-                                login.getText().toString(),
                                 user.getText().toString(),
-                                TextUtils.substring(login.getText().toString(), 0, 3),
-                                TextUtils.substring(login.getText().toString(), 3, 6),
+                                password.getText().toString(),
+                                user.getText().toString().length() > 6 ? TextUtils.substring(user.getText().toString(), 0, 3) : "imie",
+                                user.getText().toString().length() > 6 ? TextUtils.substring(user.getText().toString(), 3, 6) : "nazwisko",
                                 false
                         );
                         users.add(newUser);
                         Intent intent = new Intent(MainActivity.this, UserActivity.class);
-                        intent.putExtra("users", users);
+                        intent.putExtra("user_list", users);
                         intent.putExtra("user", newUser);
+                        startActivity(intent);
 
                     }
                     else {
                         if(foundUser.isAdmin()){
                             Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-                            intent.putExtra("users", users);
+                            intent.putExtra("user_list", users);
                             startActivity(intent);
                         }
                         else {
                             Intent intent = new Intent(MainActivity.this, UserActivity.class);
-                            intent.putExtra("users", users);
+                            intent.putExtra("user_list", users);
                             intent.putExtra("user", foundUser);
+                            startActivity(intent);
 
                         }
                     }
