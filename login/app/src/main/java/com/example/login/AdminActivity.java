@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import android.widget.AdapterView;
@@ -40,7 +41,7 @@ public class AdminActivity extends AppCompatActivity {
         Button editButton = findViewById(R.id.buttonEdit);
         ListView listView = findViewById(R.id.listViewUser);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -72,6 +73,8 @@ public class AdminActivity extends AppCompatActivity {
                         false
                 );
                 users.add(newUser);
+                names.add(newUser.getName() + " " + newUser.getSurname());
+                adapter.notifyDataSetChanged();
 
             }
         });
@@ -80,7 +83,9 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!users.get(selectedUser).getName().equals("admin")) {
+                    names.remove(selectedUser);
                     users.remove(selectedUser);
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
